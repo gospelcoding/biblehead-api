@@ -1,5 +1,6 @@
 const express = require("express");
 const db = require("./db");
+const secrets = require("./secrets");
 
 const app = express();
 app.use(express.json());
@@ -7,6 +8,10 @@ const env = app.get("env");
 const port = env == "production" ? 80 : 3000;
 
 app.post("/api/verses", async (req, res) => {
+  if (!hasValidKey(req)) {
+    res.status(403).send("Not allowed");
+    return;
+  }
   try {
     const data = req.body;
     const code = await db.saveVerses(
@@ -36,9 +41,15 @@ app.get("/api/verses/:code", async (req, res) => {
   }
 });
 
+function hasValidKey(req) {
+  return req.body.apiKey == secrets.apiKey;
+}
+
 app.listen(port, () =>
   console.log(
-    `Example app listening on port ${port}!\nValue of env is ${app.get("env")}`
+    `Bible Head API listening on port ${port}!\nEnvironment is ${app.get(
+      "env"
+    )}`
   )
 );
 

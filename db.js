@@ -1,4 +1,5 @@
 const pgp = require("pg-promise")();
+const secrets = require("./secrets");
 
 const password = "biblehead";
 const cn = {
@@ -6,7 +7,7 @@ const cn = {
   port: 5432,
   database: "bibleheadapi",
   user: "bibleheadapi",
-  password: password
+  password: secrets.dbPassword
 };
 const db = pgp(cn);
 
