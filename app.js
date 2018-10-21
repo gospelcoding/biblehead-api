@@ -5,7 +5,7 @@ const secrets = require("./secrets");
 const app = express();
 app.use(express.json());
 const env = app.get("env");
-const port = env == "production" ? 80 : 3000;
+const port = env == "production" ? 8080 : 3000;
 
 app.post("/api/verses", async (req, res) => {
   if (!hasValidKey(req)) {
