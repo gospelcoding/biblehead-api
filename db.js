@@ -1,14 +1,12 @@
 const pgp = require("pg-promise")();
-const secrets = require("./secrets");
 
-const password = "biblehead";
 const cn = {
   host: "localhost",
   port: 5432,
   database: "bibleheadapi",
-  user: "bibleheadapi",
-  password: secrets.dbPassword
+  user: "bibleheadapi"
 };
+if (process.env.NODE_ENV != "production") cn.password = "biblehead";
 const db = pgp(cn);
 
 async function getVerses(code) {
