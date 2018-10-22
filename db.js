@@ -1,5 +1,5 @@
 const pgp = require("pg-promise")();
-const secrets = require("secrets.js");
+const secrets = require("./secrets.js");
 
 const cn = {
   database: "bibleheadapi",
