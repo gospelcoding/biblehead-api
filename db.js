@@ -14,7 +14,7 @@ async function getVerses(code) {
     code
   );
   if (!row) return null;
-  return { verses: row.verses, formatVersion: row.format_version };
+  return { verses: JSON.parse(row.verses), formatVersion: row.format_version };
 }
 
 async function saveVerses(code, verses, format_version) {
