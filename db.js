@@ -44,17 +44,22 @@ async function nextCode() {
 }
 
 function incrementCode(code) {
-  const index = code.split("").findIndex(c => c != "Z");
-  if (index == -1) return new Array(code.length + 1).fill("A").join("");
-  const newChar = String.fromCharCode(code.charCodeAt(index) + 1);
-  return code.slice(0, index) + newChar + code.slice(index + 1);
+  const max = "Y";
+  const min = "B";
+
+  if (code.length == 0) return min;
+
+  const char = code[0];
+  if (char == max) return min + incrementCode(code.slice(1));
+
+  return String.fromCharCode(char.charCodeAt(0) + 1) + code.slice(1);
 }
 
 function firstCode() {
   return "ABHA";
 }
 
-module.exports = { saveVerses: saveVerses, getVerses: getVerses };
+module.exports = { saveVerses, getVerses, incrementCode };
 
 // db.one("SELECT $1 AS value", 123)
 //   .then(function(data) {
